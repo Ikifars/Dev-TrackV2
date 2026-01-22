@@ -11,7 +11,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-CORS(app, origins=["http://localhost:5500"])
+CORS(app, origins=["https://ikifars.github.io/Dev-TrackV2/"])
 
 app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET", "devtrack-dev")
 jwt = JWTManager(app)
