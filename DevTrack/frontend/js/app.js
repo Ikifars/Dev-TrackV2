@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/api"
+const API = "https://dev-trackv2.onrender.com/api"
 
 function login() {
   if(!email.value || !password.value){
