@@ -22,18 +22,48 @@ function login() {
   })
 }
 
-function loadProjects(){
+// function loadProjects(){
+//   fetch(API + "/projects", {
+//     headers: {"Authorization": "Bearer " + localStorage.getItem("token")}
+//   })
+//   .then(res => res.json())
+//   .then(data => {
+//     projectList.innerHTML = ""
+//     data.forEach(p => {
+//       projectList.innerHTML += `<li>${p[1]} - ${p[2]}</li>`
+//     })
+//   })
+// }
+function loadProjects() {
+  const token = localStorage.getItem("token")
+
+  if (!token) {
+    window.location = "index.html"
+    return
+  }
+
   fetch(API + "/projects", {
-    headers: {"Authorization": "Bearer " + localStorage.getItem("token")}
+    headers: {
+      "Authorization": "Bearer " + token
+    }
   })
   .then(res => res.json())
   .then(data => {
-    projectList.innerHTML = ""
-    data.forEach(p => {
-      projectList.innerHTML += `<li>${p[1]} - ${p[2]}</li>`
+    if (!Array.isArray(data)) {
+      console.error("Erro API:", data)
+      alert("Sessão expirada. Faça login novamente.")
+      localStorage.removeItem("token")
+      window.location = "index.html"
+      return
+    }
+
+    data.forEach(project => {
+      console.log(project)
+      // renderiza seus cards aqui
     })
   })
 }
+
 
 function createProject(){
   if(!projectName.value.trim()){
