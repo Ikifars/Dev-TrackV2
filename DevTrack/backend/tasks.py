@@ -1,13 +1,13 @@
-from flask_cors import CORS
+#from flask_cors import CORS
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from database import get_db
 from utils import log_action
 
 bp = Blueprint('tasks', __name__)
-CORS(bp)
+#CORS(bp)
 
-@bp.route('/tasks', methods=['POST','OPTIONS'])
+@bp.route('/tasks', methods=['POST'])
 @jwt_required()
 def create_task():
     user_id = get_jwt_identity()
@@ -24,7 +24,7 @@ def create_task():
     log_action(user_id, f"Tarefa criada: {data['title']}")
     return jsonify({"msg": "Tarefa criada"})
 
-@bp.route('/tasks/<int:project_id>', methods=['GET', 'OPTIONS'])
+@bp.route('/tasks/<int:project_id>', methods=['GET'])
 @jwt_required()
 def list_tasks(project_id):
     conn = get_db()
