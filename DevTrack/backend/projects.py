@@ -1,13 +1,12 @@
-from flask_cors import CORS
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from database import get_db
 from utils import log_action
 
 bp = Blueprint('projects', __name__)
-CORS(bp)
 
-@bp.route('/projects', methods=['GET', 'OPTIONS'])
+
+@bp.route('/projects', methods=['GET'])
 @jwt_required()
 def list_projects():
     user_id = get_jwt_identity()
@@ -16,7 +15,7 @@ def list_projects():
     cursor.execute("SELECT id, name, status FROM projects WHERE owner_id=?", (user_id,))
     return jsonify(cursor.fetchall())
 
-@bp.route('/projects', methods=['POST', 'OPTIONS'])
+@bp.route('/projects', methods=['POST'])
 @jwt_required()
 def create_project():
     user_id = get_jwt_identity()
