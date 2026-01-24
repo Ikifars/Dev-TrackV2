@@ -7,7 +7,7 @@ from utils import log_action
 bp = Blueprint('tasks', __name__)
 CORS(bp)
 
-@bp.route('/tasks', methods=['POST'])
+@bp.route('/tasks', methods=['POST','OPTIONS'])
 @jwt_required()
 def create_task():
     user_id = get_jwt_identity()
@@ -24,7 +24,7 @@ def create_task():
     log_action(user_id, f"Tarefa criada: {data['title']}")
     return jsonify({"msg": "Tarefa criada"})
 
-@bp.route('/tasks/<int:project_id>', methods=['GET'])
+@bp.route('/tasks/<int:project_id>', methods=['GET', 'OPTIONS'])
 @jwt_required()
 def list_tasks(project_id):
     conn = get_db()
