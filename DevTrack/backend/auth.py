@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token
 from datetime import timedelta
@@ -6,8 +7,9 @@ from utils import log_action
 import bcrypt
 
 bp = Blueprint('auth', __name__)
+CORS(bp)
 
-@bp.route('/register', methods=['POST'])
+@bp.route('/register', methods=['POST','OPTIONS'])
 def register():
     data = request.json
     if not data.get("email") or not data.get("password"):
@@ -28,7 +30,7 @@ def register():
     except:
         return jsonify({"error": "Email já cadastrado"}), 400
 
-@bp.route('/login', methods=['POST'])
+@bp.route('/login', methods=['POST', 'OPTIONS'])
 def login():
     data = request.json
     conn = get_db()
