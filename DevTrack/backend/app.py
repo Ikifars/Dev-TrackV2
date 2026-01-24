@@ -12,9 +12,17 @@ load_dotenv()
 app = Flask(__name__)
 
 #CORS(app, origins=["https://ikifars.github.io/Dev-TrackV2/"])
-CORS(app, resources={r"/api/*": {
-    "origins": ["https://ikifars.github.io"]
-}})
+# CORS(app, resources={r"/api/*": {
+#     "origins": ["https://ikifars.github.io"]
+# }})
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["https://ikifars.github.io"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
+
 
 
 app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET", "devtrack-dev")
