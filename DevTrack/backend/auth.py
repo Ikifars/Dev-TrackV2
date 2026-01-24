@@ -30,7 +30,11 @@ def register():
     except:
         return jsonify({"error": "Email já cadastrado"}), 400
 
-@bp.route('/login', methods=['POST', 'OPTIONS'])
+@bp.route('/login', methods=['OPTIONS'])
+def login_options():
+    return '', 204
+
+@bp.route('/login', methods=['POST'])
 def login():
     data = request.json
     conn = get_db()
