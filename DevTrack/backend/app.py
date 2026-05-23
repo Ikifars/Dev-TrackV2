@@ -11,7 +11,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# 1. CORS: seguro e específico
+# CORS: seguro e específico
 CORS(app, resources={
     r"/api/*": {
         "origins": ["https://ikifars.github.io"],  # Nunca usa "*"
@@ -21,7 +21,7 @@ CORS(app, resources={
     }
 })
 
-# 2. JWT: sem fallback inseguro. Se não tiver no .env, crasha.
+# JWT: sem fallback inseguro. Se não tiver no .env, crasha.
 jwt_secret = os.getenv("JWT_SECRET")
 if not jwt_secret:
     raise ValueError("JWT_SECRET não definido no .env. Abortando.")
@@ -31,7 +31,7 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 900  # 15min - bate com seu front
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = 604800  # 7 dias
 jwt = JWTManager(app)
 
-# 3. Handlers de erro do JWT pra retornar JSON bonitinho pro front
+# Handlers de erro do JWT pra retornar JSON pro front
 @jwt.expired_token_loader
 def expired_token_callback(jwt_header, jwt_payload):
     return jsonify({"message": "Token expirado", "error": "token_expired"}), 401
