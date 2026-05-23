@@ -63,7 +63,7 @@ def login():
 
         # Compara com encode e precisa do decode que fizemos no register
         if user and bcrypt.checkpw(data['password'].encode('utf-8'), user[1].encode('utf-8')):
-            # 9. Remove expires_delta: usa o padrão do app.py de 15min
+            # Remove expires_delta: usa o padrão do app.py de 15min
             token = create_access_token(identity=str(user[0]))
             log_action(user[0], "Login realizado")
             return jsonify({"token": token, "expires_in": 900}), 200
