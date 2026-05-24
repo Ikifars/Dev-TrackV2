@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <title>DevTrack</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+  #toggle-text { 
+    cursor: pointer; 
+    margin-top: 15px; 
+    font-size: 14px;
+    user-select: none;
+  }
+  #toggle-text span { 
+    color: #007bff; 
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
 <div class="card">
@@ -13,10 +25,10 @@
   <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Senha">
   
-  <button id="submit-btn" onclick="handleSubmit()">Entrar</button>
+  <button id="submit-btn" type="button">Entrar</button>
   
-  <p id="toggle-text" style="cursor: pointer; margin-top: 15px; font-size: 14px;">
-    Não tem conta? <span style="color: #007bff;">Cadastre-se</span>
+  <p id="toggle-text">
+    Não tem conta? <span>Cadastre-se</span>
   </p>
 </div>
 <script src="js/app.js"></script>
